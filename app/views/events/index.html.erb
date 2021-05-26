@@ -1,0 +1,146 @@
+<h1 class="text-center margin-top: 4rem">Bienvenido</h1>
+<p class="text-white">Eventus: Planifica, crea y disfruta!</p>
+<div class="card text-center">
+    <div class="card-header">
+        <h5 class= "text-color #0A8FE9">Para una mejor experiencia le invitamos a registrarse en nuestro sitio o iniciar sesión. </h5>
+    </div>
+        <div class="btn-group">
+            <div class="card-body text-align: center">
+                <div class="text-left margin-top: 1rem" >
+                    <% if host_signed_in?%>
+                        <button type="button" class="btn btn">
+                        <%= link_to 'Cerrar sesión como Host', destroy_host_session_path, method: :delete%></button>
+                    <% else %>
+                        <div class="bg-dark text-white" ></div>
+                            <%= link_to 'Iniciar sesión como Host', new_host_session_path%></button>
+                        <div class="bg-dark text-white"></div>
+                        <%= link_to 'Registrarse como Host ', new_host_registration_path%></button>
+                    <% end %>
+                    </div>
+
+                    <div class="text-right margin-top: 1rem">
+                        <% if guest_signed_in?%>
+                            <button type="button" class="btn btn-primary">
+                            <%= link_to 'Cerrar sesión como guest', destroy_guest_session_path, method: :delete%></button>
+                        <% else %>
+                        <div class="bg-dark text-white"></div>
+                            <%= link_to 'Iniciar sesión como Invitado', new_guest_session_path%></button>
+                            <div class="bg-dark text-white"></div>
+                            <%= link_to 'Registrarse como Invitado', new_guest_registration_path%></button>
+                        <% end %>
+                        </div>
+                <div class="card-footer text-muted">
+                2021
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- HERO SECTION -->
+    <section class="container-fluid hero-section">
+        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                  <div class="carousel-item active">
+                </div>
+                <div class="carousel-item">
+                    <h5>Celebra la vida de los nuevos miembros de la familia</h5>
+                    <%=image_tag("baby.jpg", height: 200, width: 250)%>
+                </div>
+                <div class="carousel-item">
+                    <h5>Disfruta del día más importante con tu pareja</h5>
+                    <<%=image_tag("boda.jpg", height: 200, width: 250)%>
+                </div>
+                <div class="carousel-item">
+                    <h5>Celebra a tus familiares y amigos</h5>
+                    <<%=image_tag("cumpleanos.jpg", height: 200, width: 250)%>
+                </div>
+                <div class="carousel-item">
+                    <h5>Celebra la vida de los nuevos miembros de la familia</h5>
+                    <<%=image_tag("bautismo.jpg", height: 200, width: 250)%>
+                </div>
+                <div class="carousel-item">
+                    <h5>Celebra los éxitos</h5>
+                    <<%=image_tag("inauguracion.jpg", height: 200, width: 250)%>
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </section>
+
+
+
+
+
+
+
+
+<!--Seccion Eventos-->
+<h1>Eventos</h1>
+<div>  
+  <% if host_signed_in?%> 
+  <%= link_to new_host_event_path(current_host, @events) do %>
+  <button><span id="span">Crear nuevo evento&nbsp; </span></button>
+  <% end %>
+  <% end %>
+</div>
+<br />
+<div class="card shadow mb-4">
+  <div class="card-body">
+    <div class="table-responsive">
+      <table id="tablaGuest" class="table table-bordered" width="100%">
+        <thead>
+          <tr class="p-3 mb-2 bg-secondary text-white">
+            <th>Nombre</th>
+            <th>Tipo</th>
+            <%if host_signed_in?%>
+            <th>Ver detalles</th>
+            <th>Editar</th>
+            <th>Eliminar</th>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody>
+        <% @events.each do |event| %>
+            <tr>
+              <td><%= event.name %></td>
+              <td><%= event.kind %></td>
+              <%if host_signed_in?%>
+              <td><%= link_to 'Ver', host_event_path(current_host.id, event.id), class: 'btn btn-info btn-sm' %></td>
+              <td><%= link_to 'Editar', edit_host_event_path(current_host.id, event.id), class: 'btn btn-info btn-sm' %></td>
+              <td><%= link_to 'Eliminar', [current_host, event], method: :delete, data: { confirm: 'Está seguro de eliminar el evento?' }, class: 'btn btn-info btn-sm'%>
+              <% end %>
+              </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="card-deck m-auto">
+  <div class="card" style="width: 18 rem;">
+    <div class="card-header">
+      <h3>Cantidad de eventos registrados por día</h3>
+    </div>
+    <div class="card-body">
+        <blockquote class="blockquote mb-0">
+          <%= line_chart Event.group_by_day(:created_at).count%>
+        </blockquote>
+    </div>
+  </div>
+  <div class="card" style="width: 18 rem; container-fluid">
+    <div class="card-header">
+      <h3>Eventos creados según el tipo</h3>
+    </div>
+    <div class="card-body">
+      <blockquote class="blockquote mb-0">
+        <%= pie_chart Event.group(:kind).count%>
+      </blockquote>
+    </div>
+</div>

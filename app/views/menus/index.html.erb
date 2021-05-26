@@ -1,0 +1,45 @@
+<div class="card shadow mb-4">
+  <div class="card-body">
+    <div class="table-responsive">
+      <table id="tablaGuest" class="table table-bordered" width="100%">
+        <thead>
+        <p id="notice"><%= notice %></p>
+
+        <h1>Menus</h1>
+        <div class="text-right"> 
+        <%= link_to 'New Menu', new_host_event_menu_path(current_host.id, @events.id),  class: "btn btn-info"  %>
+        <%= link_to 'Back', host_events_path(current_host.id, @events),  class: "btn btn-info"  %>
+        </div>
+        <table id="tablaGuest" class="table table-bordered" width="100%">
+          <thead>
+            <tr class="p-3 mb-2 bg-secondary text-white">
+              <th>Nombre</th>
+              <th>Descripción</th>
+              <th>Imagen</th>
+              <th>Ver detalles</th>
+              <th>Editar</th>
+              <th>Eliminar</th>
+
+              <th colspan="3"></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @menus.each do |menu| %>
+              <tr>
+                <td><%= menu.name%></td>
+                <td><%= menu.description %></td>
+                <td><%= image_tag menu.image, size:"100x100" if menu.image.attached?%></td>
+                <td><%= link_to 'Ver Menú', host_event_menu_path(current_host.id, menu.event.id, menu.id) %></td>
+                <td><%= link_to 'Editar', edit_host_event_menu_path(current_host.id, menu.event.id, menu.id) %></td>
+                <td><%= link_to 'Eliminar', [current_host, @events, menu], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <br>
+        </table>
+    </div>
+  </div>
+</div>
+

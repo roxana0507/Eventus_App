@@ -1,0 +1,90 @@
+<p id="notice"><%= notice %></p>
+<h1 class="h3 mb-2 text-gray-800">Detalles del Evento</h1>
+
+<div class="card shadow mb-4">
+  <div class="card-body">
+    <div class="table-responsive">
+      <table id="tablaGuest" class="table table-bordered" width="100%">
+        <thead>
+          <div class="text-right"> 
+            <%= link_to 'Edit', edit_host_event_path(current_host.id, @event.id),  class: "btn btn-info" %>
+            <%= link_to 'Back', root_path, class: "btn btn-info" %>
+          </div>
+          <tr class="p-3 mb-2 bg-secondary text-white">
+            <th>Nombre</th>
+            <th>Tipo</th>
+            <th>Host</th>
+            <th>Configuracion del menú</th>
+          </tr>
+        </thead>
+        <tbody>
+          <p id="notice"><%= notice %></p>
+          <tr>
+            <th>
+              <%= @event.name %>
+            </th>
+            <th>
+              <%= @event.kind %>
+            </th>
+            <th>
+              <% if @event.hosts.present?%>
+                <%  @event.hosts.each do |host|%>
+                <%= link_to host.email, host_event_path(current_host.id, @event.id), class: "text-success"%>
+              <% end %>
+            </th>
+            <th>
+              <%= link_to "Ver opciones", host_event_menus_path(current_host.id, @event.id),  class: "text-success"%>
+            </th>
+            <% end %>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="card shadow mb-4">
+  <div class="card-body">
+    <div class="table-responsive">
+      <table id="tablaGuest" class="table table-bordered" width="100%">
+        <thead>
+          <tr class="p-3 mb-2 bg-secondary text-white">
+            <th>Nombre</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <%if host_signed_in?%>
+          <h2> Lista de Invitados </h2>
+          <%= form_tag(assign_guest_path, method: :get) do %>
+          <%= hidden_field_tag :id, @event.id %> 
+          <%= label_tag "Agregar Invitados"%>
+          <strong> Nombre </strong>
+          <%= text_field_tag :guest_name%>
+          <strong> Email </strong>
+          <%= email_field_tag :guest_email %>
+          <%= submit_tag "Agregar"%>
+        <%end%>
+        <hr>
+        <%if @event.guests.length > 0 %>
+          <tbody class="text-justify">
+            <% @event.guests.each do |guest| %>
+            <tr>
+            <td>
+            <%= guest.name%>
+            </td>
+            <td>
+            <%= guest.email%>
+            </td>
+            </tr>
+          <%end%>
+          </tbody>
+        </table>
+        <%else%>
+        <h3>No hay invitados registrados</h3>
+        <%end%>
+        <%end%>
+      </table>
+    </div>
+  </div>
+</div>
+

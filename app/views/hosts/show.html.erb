@@ -1,0 +1,22 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @host.name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @host.email%>
+</p>
+
+<% if @host.events.present? %>
+<p><strong>events:</strong></p>
+<ul>
+<% @host.events.each do |event|  %>
+<li><%=event.name%></li> 
+<% end %>
+</ul>
+<% end %>
+
+<%= link_to 'Back', root_path %>

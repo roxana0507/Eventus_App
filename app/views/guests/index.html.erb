@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Guests</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @guests.each do |guest| %>
+      <tr>
+        <td><%= guest.email%></td>
+        <td><%= link_to 'Show', host_event_guest_path(current_host.id, @event.id, guest.id), class: 'btn btn-info' %></td>
+        <td><%= link_to 'Edit', edit_host_event_guest_path(current_host.id, @event.id, guest.id), class: 'btn btn-info'%></td>
+        <td><%= link_to 'Destroy' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Event', new_host_event_path(current_host.id, :event), class: 'btn btn-info'%>

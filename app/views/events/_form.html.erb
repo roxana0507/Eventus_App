@@ -1,0 +1,46 @@
+<h1>Evento</h1>
+<div class="card shadow mb-4">
+  <div class="card-body" class="p-3 mb-2 bg-success text-white">
+    <div class="table-responsive">
+       <table id="tablaGuest" class="table table-bordered" width="100%">
+         <thead>
+           <tr class="p-3 mb-2 bg-secondary text-white">
+           </tr>
+         </thead>
+         <tbody>
+          <tr>
+            <%= form_with(model: [host, event]) do |form| %>
+              <% if event.errors.any? %>
+                <div id="error_explanation">
+                  <h2><%= pluralize(event.errors.count, "error") %> prohibited this @event from being saved:</h2>
+
+                  <ul>
+                    <% event.errors.each do |error| %>
+                      <li><%= error.full_message %></li>
+                    <% end %>
+                  </ul>
+                </div>
+              <% end %>
+            <div>
+                <div class="field">
+                  <%= form.label :Nombre_del_evento %>
+                  <%= form.text_field :name %>
+                </div>
+
+                <div class="field">
+                  <%= form.label :Tipo %>
+                  <%= form.text_field :kind %>
+                </div>
+
+                <div class="actions">
+                  <%= form.submit %>
+                </div>
+              <% end %>
+            </div>
+          </tr>
+         </tbody>
+       </table>
+    </div>
+  </div>
+</div>
+

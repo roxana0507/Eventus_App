@@ -1,0 +1,26 @@
+<div class="container" id="registro" >
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @menu.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @menu.description %>
+</p>
+
+<p>
+  <strong>Image:</strong>
+  <%= link_to @menu.image.filename, @menu.image if @menu.image.attached? %>
+</p>
+
+<p>
+  <strong>Event:</strong>
+  <%= @menu.event_id %>
+</p>
+
+<%= link_to 'Edit', edit_host_event_menu_path(current_host.id,  @menu.event_id,  @menu.id)%> 
+
+<%= link_to 'Back', host_event_menus_path(current_host.id, @menu.event_id) %>

@@ -1,0 +1,46 @@
+<div class="container" id="registro" >
+<%= form_with(model: [current_host.id, @event], url: create_host_event_menu_path(current_host.id, @event)) do |form| %>
+  <% if menu.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(menu.errors.count, "error") %> prohibited this menu from being saved:</h2>
+
+      <ul>
+        <% menu.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<%= form.hidden_field :event_id, value: @event %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_field :description %>
+  </div>
+
+  <div class="form-group", >
+    <% if menu.image.attached? %>
+    <%= form.label :images %>
+    <%= form.file_field :images%>
+    <% end %>
+  </div>
+
+
+<%# 
+  <%= form_for @product, html: { multipart: true } do |form| 
+  <%= form.file_field :image %>
+  <%# <%= form.submit %>
+<%# <% end %>
+
+
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

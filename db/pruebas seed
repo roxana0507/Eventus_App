@@ -1,0 +1,33 @@
+# This file should contain all the record creation needed to seed the database with its default values.
+# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
+#
+# Examples:
+#
+#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
+#   Character.create(name: 'Luke', movie: movies.first)
+
+Host.destroy_all
+Event.destroy_all
+Guest.destroy_all
+
+host = Host.create(email:'roxy.0507@gmail.com', password:'123456')
+
+event = Event.create(name: 'Juan y Rosa Boda', kind: 'Boda')
+
+guest = Guest.create(email:'rosa@gmail.com', password:'123456')
+
+host.events.push(event)
+
+guest.events.push(event)
+
+require 'faker' 
+
+FactoryBot.define do
+    factory :guest do
+        name {Faker::Name.name_with_middle
+        email { Faker::Internet.email }
+        password { Faker::Internet.password }
+    end
+  end
+
+

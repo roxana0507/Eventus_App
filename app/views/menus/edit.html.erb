@@ -1,0 +1,6 @@
+<h1>Editar Menu</h1>
+
+<%= render 'form', host: current_host, event: @event, menu: @menu %>
+
+<%= link_to 'Show', host_event_menus_path(current_host.id, @menu.event.id, @menu) %> |
+<%= link_to 'Back', host_event_menus_path(current_host.id, @menu.event.id) %>
