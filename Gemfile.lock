@@ -109,6 +109,7 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    dotenv (2.7.6)
     erubi (1.10.0)
     execjs (2.7.0)
     faker (2.17.0)
@@ -277,6 +278,7 @@ DEPENDENCIES
   capybara (>= 3.26)
   chartkick (~> 4.0)
   devise (~> 4.7)
+  dotenv (~> 2.1, >= 2.1.1)
   faker
   font-awesome-rails (~> 4.7, >= 4.7.0.7)
   groupdate (~> 5.2)

@@ -75,3 +75,5 @@ gem 'groupdate', '~> 5.2'
 gem "chartkick", "~> 4.0"
 
 gem 'image_processing'
+
+gem 'dotenv', '~> 2.1', '>= 2.1.1'
