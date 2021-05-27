@@ -21,3 +21,4 @@ module AppEventus
     # config.eager_load_paths << Rails.root.join("extras")
   end
 end
+# config/application.rb
